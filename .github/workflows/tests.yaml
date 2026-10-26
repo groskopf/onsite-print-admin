@@ -1,4 +1,4 @@
-name: Publishing tests
+name: Application and publishing tests
 
 on:
   push:
@@ -13,5 +13,13 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
       - name: Test publishing script
         run: bash tests/docker-push-test.sh

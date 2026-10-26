@@ -143,12 +143,8 @@ function getInitials(name) {
     .toUpperCase()
 }
 
-export function Sidebar({ activeView, onNavigate, eventMode = false, eventOpen = false, onLogout }) {
-  const navigation = eventMode ? (eventOpen ? [
-    ['calendar', 'Event', 'event'],
-    ['people', 'Attendees', 'attendees'],
-    ['check', 'Check-in', 'checkin'],
-  ] : []) : [
+function Sidebar({ activeView, onNavigate }) {
+  const navigation = [
     ['grid', 'Overview'],
     ['calendar', 'Events', 'events'],
     ['ticket', 'Bookings', 'bookings'],
@@ -157,7 +153,7 @@ export function Sidebar({ activeView, onNavigate, eventMode = false, eventOpen =
 
   return (
     <aside className="sidebar" aria-label="Main navigation">
-      <a className="brand" href={eventMode ? '/event/' : '#workspace'} aria-label="Onsite Print home">
+      <a className="brand" href="#workspace" aria-label="Onsite Print home">
         <span className="brand-mark"><span /><span /><span /></span>
         <span className="brand-name">ONSITE<br />PRINT</span>
       </a>
@@ -182,21 +178,14 @@ export function Sidebar({ activeView, onNavigate, eventMode = false, eventOpen =
       </nav>
 
       <div className="sidebar-bottom">
-        {eventMode && eventOpen && <button className="nav-item" type="button" onClick={onLogout}>
-          <Icon name="chevronLeft" size={20} />
-          <span>Log out</span>
-        </button>}
-        {!eventMode && <button className="nav-item" type="button" title="Help">
+        <button className="nav-item" type="button" title="Help">
           <Icon name="help" size={20} />
           <span>Help</span>
-        </button>}
-        {eventMode ? <div className="profile-button">
-          <span className="avatar">OP</span>
-          <span className="profile-label">Event</span>
-        </div> : <button className="profile-button" type="button" aria-label="Account menu">
+        </button>
+        <button className="profile-button" type="button" aria-label="Account menu">
           <span className="avatar">OP</span>
           <span className="profile-label">Admin</span>
-        </button>}
+        </button>
       </div>
     </aside>
   )
